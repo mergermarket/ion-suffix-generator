@@ -1,4 +1,5 @@
 task_id=$(grep TaskARN $ECS_CONTAINER_METADATA_FILE | awk -F'"' '{print $4}')
+service_name=$(grep TaskDefinitionFamily $ECS_CONTAINER_METADATA_FILE | awk -F'"' '{print $4}')
 
 while true
 do
@@ -22,7 +23,7 @@ do
             saved_task_id=$(echo ${row} | jq '.Item.taskid.S' | sed 's/"//g')
         fi
 
-        all_tasks=$(aws ecs list-tasks --service-name  ${ENV_NAME}-ion-xtract-router --region eu-west-1)
+        all_tasks=$(aws ecs list-tasks --service-name ${service_name} --region eu-west-1)
         if ! echo "${all_tasks}" | grep -q ${saved_task_id} ; then
             aws dynamodb put-item \
               --table-name ${SUFFIX_TABLE} \
