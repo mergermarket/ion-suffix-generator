@@ -15,7 +15,7 @@ do
               --condition-expression "attribute_not_exists(taskid)" \
               --region eu-west-1
             if [ $? -eq 0 ] ; then
-                echo "${task_id}:GOT SUFFIX '${suffix}', adding new row"
+                echo "${task_id}:GOT SUFFIX '${suffix}', adding new row" 1>&2
                 break 2
             fi
         else
@@ -31,7 +31,7 @@ do
               --expression-attribute-values "{\":t\": {\"S\": \"${saved_task_id}\"}}" \
               --region eu-west-1
             if [ $? -eq 0 ] ; then
-                echo "${task_id}:GOT SUFFIX '${suffix}', replacing old id '${saved_task_id}'"
+                echo "${task_id}:GOT SUFFIX '${suffix}', replacing old id '${saved_task_id}'" 1>&2
                 break 2
             fi
         fi
@@ -39,4 +39,4 @@ do
     done
 done
 
-return suffix
+echo $suffix
