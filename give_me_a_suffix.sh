@@ -6,7 +6,7 @@ do
     while [ $i -lt $DESIRED_COUNT ]
     do
         let suffix=$START_SUFFIX+$i
-        row=$(aws dynamodb get-item --table-name ${SUFFIX_TABLE} --key "{\"suffix\": {\"S\": \"$suffix\"}}")
+        row=$(aws dynamodb get-item --table-name ${SUFFIX_TABLE} --key "{\"suffix\": {\"S\": \"$suffix\"}}" --region eu-west-1)
         echo $task_id ":" $suffix ":" $row
 
         if [ -z "${row}" ] ; then
