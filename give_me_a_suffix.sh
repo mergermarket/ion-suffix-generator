@@ -38,3 +38,5 @@ do
         let i=$i+1
     done
 done
+
+return suffix
