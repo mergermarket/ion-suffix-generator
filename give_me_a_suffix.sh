@@ -1,5 +1,5 @@
-task_id=$(grep TaskARN $ECS_CONTAINER_METADATA_FILE | awk -F'"' '{print $4}')
-service_name=$(grep TaskDefinitionFamily $ECS_CONTAINER_METADATA_FILE | awk -F'"' '{print $4}')
+task_id=$(cat $ECS_CONTAINER_METADATA_FILE | jq -r '.TaskARN')
+service_name=$(cat $ECS_CONTAINER_METADATA_FILE | jq -r '.TaskDefinitionFamily')
 
 while true
 do
