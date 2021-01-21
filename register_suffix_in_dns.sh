@@ -6,7 +6,7 @@ domain="${ACCOUNT_ALIAS}.acurisbackend.com"
 ip=$(cat $ECS_CONTAINER_METADATA_FILE | jq -r '.Networks[0].IPv4Addresses[0]')
 service_name=$(cat $ECS_CONTAINER_METADATA_FILE | jq -r '.TaskDefinitionFamily')
 
-record_name="${serice_name}-${suffix}.${domain}"
+record_name="${service_name}-${suffix}.${domain}"
 echo "Record name to be created: '$record_name'"
 hosted_zones=$(aws route53 list-hosted-zones)
 # echo $hosted_zones
